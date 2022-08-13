@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freelancer - Start Bootstrap Theme</title>
+  
+    <link rel="stylesheet" href="styles.css">
+    <style>
+      body{
+  margin:0;
+  padding: 0;
+  font-family: arial;
+  color: #01FF69;
+}
+.vl{
+ display:none;
+ width:50%;
+ margin-bottom: 10px;
+}
+.no{
+   display:none;
+}
+.tg{
+  display: block;
+}
+.main{
+  display: grid;
+  justify-content: center;
+  text-align: center;
+  justify-items: center;
+}
+button{
+  height: 50px ;
+  padding: 10px;
+  border-radius:20px;
+  background: #01FF69;
+  border: none;
+  margin-bottom: 10px;
+  color:white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.5s;
+}
+button:hover{
+  border:3px solid skyblue;
+}
+.inputs{
+  border: 1px wheat solid;
+  width: 80%;
+  border-radius:20px;
+  height:auto;
+  padding:0.75rem;
+  margin: 0 auto;
+}
+.inputs input{
+  width: 100%;
+  height:40px;
+  border: 2px solid #01FF69;
+  outline: none;
+  margin: 0 auto;
+  border-radius: 20px;
+}
+p{
+  color:black;
+}
+.finaly{
+  height:20px;
+  width: auto;
+  padding: 0.5rem  ;
+  background:#01FF69;
+  border:none;
+  border-radius: 20px;
+  color:white;
+  justify-content: center;
+  font-weight: bolder;
+}
+</style>
+
+</head>
+<body>  
+      <div class="main">
+          <div class="main">
+              <h2>SIMILATEUR NATIONAL CONFIDENTIEL </h2>
+              <h4>Vérifiaction de l'inflation tarifaire énergetéique des usagers</h4>
+                  <button class="btn">
+                    VISUALISER UNE MENSUALITE
+                  </button>
+               
+          </div>  
+          <div class="inputs no">
+              <input type="number"  placeholder="Indique la mensualité" class="input1">
+              <input type="number"  placeholder="Veuillez insérer le PDL de l'habitation concernées" style="display:none;" class="input2">
+
+          </div>
+                      <button id="valider" class="vl">Valider</button>
+
+
+            <div class="result" class="main">
+                 <p style="display:none;" class="wait">
+                    POINT DE LIVRAISON RECONNU, VEUILLEZ PATIENTEZ ...
+                  
+                 </p>
+                <div class="finaly" style="display:none" >
+                    
+                    MENSUALITE TROUVER POUR LES 5ANNEES A VENIR EST : 
+                </div><br><br>
+                <p class="showMens" style="display:none">250</p>
+            </div>
+
+        </div>
+
+        <script>
+           const button = document.querySelector('.btn');
+const inputs = document.querySelector('.inputs');
+const valider = document.querySelector('#valider')
+const input1 = document.querySelector('.input1');
+const input2 = document.querySelector('.input2')
+const wait = document.querySelector('.wait')
+const finaly = document.querySelector('.finaly')
+const showMens = document.querySelector('.showMens')
+
+button.addEventListener('click',()=>{
+     inputs.classList.toggle("tg");
+     valider.classList.toggle("tg");
+   
+})
+
+
+input1.addEventListener('input',(e)=>{
+     let mensuel = e.target.value;
+    valider.addEventListener('click',()=>{
+       input1.style.display="none"
+       input2.style.display="inline-block"
+       valider.addEventListener("click",()=>{
+         wait.style.display="inline-block"
+         setTimeout(()=>{
+          wait.style.display="none"
+          finaly.style.display="inline-block"
+          showMens.style.display="inline-block"
+          showMens.textContent = render(mensuel) +"€"
+         },2000)
+         
+
+       })
+    })
+      
+})
+
+function render(value) {
+   let mensuel = Math.pow(1.08,5)*value
+  return Math.round( mensuel* 1000) / 1000;
+}
+</script>
+</body>
+</html>
